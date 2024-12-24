@@ -117,21 +117,28 @@ function revertIDs(){
     allSquares.forEach((square, i) => 
         square.setAttribute('square-id', i))
 }
-function checkForWin(){
-    const kings = Array.from(document.querySelectorAll('#king'))
-    console.log(kings)
-    if (!kings.some(king => king.firstChild.classList.contains('white'))){
-        infodisplay.innerHTML = "Black Player Wins!"
-        const allSquares = document.querySelectorAll('.square')
-        allSquares.forEach(square => square.firstChild?.setAttribute('draggable', false))
-    }
-    if (!kings.some(king => king.firstChild.classList.contains('black'))){
-        infodisplay.innerHTML = "White Player Wins!"
-        const allSquares = document.querySelectorAll('.square')
-        allSquares.forEach(square => square.firstChild?.setAttribute('draggable', false))
+function checkForWin() {
+    const kings = Array.from(document.querySelectorAll('#king'));
+    console.log(kings);
+
+    // Reference to the playerGo_container
+    const playerGoContainer = document.querySelector('.playerGo_container');
+
+    if (!kings.some(king => king.firstChild.classList.contains('white'))) {
+        infodisplay.innerHTML = "Black Player Wins!";
+        playerGoContainer.textContent = "Black Player Wins!";
+        const allSquares = document.querySelectorAll('.square');
+        allSquares.forEach(square => square.firstChild?.setAttribute('draggable', false));
     }
 
+    if (!kings.some(king => king.firstChild.classList.contains('black'))) {
+        infodisplay.innerHTML = "White Player Wins!";
+        playerGoContainer.textContent = "White Player Wins!";
+        const allSquares = document.querySelectorAll('.square');
+        allSquares.forEach(square => square.firstChild?.setAttribute('draggable', false));
+    }
 }
+   
 
 
 function checkIfValid(target) {
@@ -145,6 +152,31 @@ function checkIfValid(target) {
 
     switch(piece){
         case 'pawn':
+            const whiteStarterRow = [48, 49, 50, 51, 52, 53, 54, 55];
+            const blackStarterRow = [8, 9, 10, 11, 12, 13, 14, 15];
+            
+            const isWhitePawn = whiteStarterRow.includes(startID);
+
+            if (
+                // White pawn movement
+                (isWhitePawn && (
+                    whiteStarterRow.includes(startID) && startID - width * 2 === targetID || // Double step from start row
+                    startID - width === targetID || // Single step forward
+                    startID - width - 1 === targetID && document.querySelector(`[square-id="${startID - width - 1}"]`).firstChild || // Capture left
+                    startID - width + 1 === targetID && document.querySelector(`[square-id="${startID - width + 1}"]`).firstChild // Capture right
+                )) ||
+                // Black pawn movement
+                (!isWhitePawn && (
+                    blackStarterRow.includes(startID) && startID + width * 2 === targetID || // Double step from start row
+                    startID + width === targetID || // Single step forward
+                    startID + width - 1 === targetID && document.querySelector(`[square-id="${startID + width - 1}"]`).firstChild || // Capture left
+                    startID + width + 1 === targetID && document.querySelector(`[square-id="${startID + width + 1}"]`).firstChild // Capture right
+                ))
+            ) {
+                return true;
+            }
+            break;
+        /*case 'pawn':
             const starterRow = [8,9,10,11,12,13,14,15]
             if (
                 starterRow.includes(startID) && startID + width *2 === targetID || 
@@ -154,7 +186,7 @@ function checkIfValid(target) {
             ){
                 return true
             }
-            break;
+            break; */
         case 'knight':
             if(
                 startID + width *2 - 1 === targetID ||
