@@ -160,17 +160,17 @@ function checkIfValid(target) {
             if (
                 // White pawn movement
                 (isWhitePawn && (
-                    whiteStarterRow.includes(startID) && startID - width * 2 === targetID || // Double step from start row
+                    whiteStarterRow.includes(startID) && startID - width * 2 === targetID || 
                     startID - width === targetID || // Single step forward
-                    startID - width - 1 === targetID && document.querySelector(`[square-id="${startID - width - 1}"]`).firstChild || // Capture left
-                    startID - width + 1 === targetID && document.querySelector(`[square-id="${startID - width + 1}"]`).firstChild // Capture right
+                    startID - width - 1 === targetID && document.querySelector(`[square-id="${startID - width - 1}"]`).firstChild || 
+                    startID - width + 1 === targetID && document.querySelector(`[square-id="${startID - width + 1}"]`).firstChild
                 )) ||
                 // Black pawn movement
                 (!isWhitePawn && (
                     blackStarterRow.includes(startID) && startID + width * 2 === targetID || // Double step from start row
                     startID + width === targetID || // Single step forward
-                    startID + width - 1 === targetID && document.querySelector(`[square-id="${startID + width - 1}"]`).firstChild || // Capture left
-                    startID + width + 1 === targetID && document.querySelector(`[square-id="${startID + width + 1}"]`).firstChild // Capture right
+                    startID + width - 1 === targetID && document.querySelector(`[square-id="${startID + width - 1}"]`).firstChild || 
+                    startID + width + 1 === targetID && document.querySelector(`[square-id="${startID + width + 1}"]`).firstChild
                 ))
             ) {
                 return true;
