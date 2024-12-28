@@ -1,4 +1,4 @@
-Chess Game Implementation 
+Chess Game Implementation Link : https://jlin159chess.netlify.app/
 
 This project implements a basic chess game board with drag-and-drop functionality using HTML, CSS, and JavaScript. The goal of this project is to create an interactive chess experience that allows players to move pieces, alternate turns, and determine the winner when a king is captured.
 
